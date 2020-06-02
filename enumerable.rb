@@ -18,19 +18,19 @@ module Enumerable
 
 
   def my_all
-    # todo return here when refactoring return to_enum unless block_given?
+    return true unless block_given?
     self.my_each { |n| return false unless yield(n) }
     true
   end
 
   def my_any
-    # todo return here when refactoring return to_enum unless block_given?
+    return true unless block_given?
     self.my_each { |n| return true if yield(n) }
     false
   end
 
   def my_none
-    # todo return here and figure it out
+    return true unless block_given?
     self.my_each { |i| return false if yield(i) == true }
     true
   end
