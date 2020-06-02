@@ -29,11 +29,17 @@ module Enumerable
     false
   end
 
+  def my_none
+    # todo return here and figure it out
+    self.my_each { |i| return false if yield(i) == true }
+    true
+  end
+
 end
 
 
-arr = [1,3,5, 6]
+arr = [1,3,5]
 
 # arr.my_each_with_index { |n, i| puts "this is my #{n} and this is my index #{i}" }
 
-puts arr.my_any{|n| n.even?}
+puts arr.my_none{|n| n.even?}
