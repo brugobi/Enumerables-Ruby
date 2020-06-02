@@ -35,11 +35,16 @@ module Enumerable
     true
   end
 
+  def my_count
+    counter = 0
+    self.my_each {|i| counter +=1 if yield(i)}
+    counter
+  end  
 end
 
 
-arr = [1,3,5]
+arr = [1,1]
 
 # arr.my_each_with_index { |n, i| puts "this is my #{n} and this is my index #{i}" }
 
-puts arr.my_none{|n| n.even?}
+puts arr.my_count{|n| n.even?}
