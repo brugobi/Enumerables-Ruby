@@ -1,15 +1,11 @@
 module Enumerable
-    def my_each
-      
-      (self.size).times do |n|
-        
-      end
-       
-    end
-    
+  def my_each
+    return to_enum unless block_given?
+    self.size.times { |n| yield (self[n]) }
+  end
 end
 
 
-arr = [1,2,3,4,5,6]
+arr = [1, 2, 3, 4, 5, 6]
 
-puts arr.my_each {|n| n * 2}
+arr.my_each { |n| puts n * 2 }
