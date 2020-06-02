@@ -23,11 +23,17 @@ module Enumerable
     true
   end
 
+  def my_any
+    # todo return here when refactoring return to_enum unless block_given?
+    self.my_each { |n| return true if yield(n) }
+    false
+  end
+
 end
 
 
-arr = [4, 2, 6, 8, 8, 6]
+arr = [1,3,5, 6]
 
 # arr.my_each_with_index { |n, i| puts "this is my #{n} and this is my index #{i}" }
 
-puts arr.my_all{|n| n.even?}
+puts arr.my_any{|n| n.even?}
