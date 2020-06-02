@@ -16,27 +16,17 @@ module Enumerable
     result_array
   end
 
-  def my_all
-    result_array = []
-    i = 0
-    while i < self.length do
-        if yield self [i]
-            result_array << self[i]
-        end
-        i +=1    
-    end
 
-    if self.length == result_array.length
-        return true
-    else
-        false
-    end        
-  end  
+  def my_all
+    # todo return here when refactoring return to_enum unless block_given?
+    self.my_each { |n| return false unless yield(n) }
+    true
+  end
 
 end
 
 
-arr = [4, 2, 6, 7, 8, 6]
+arr = [4, 2, 6, 8, 8, 6]
 
 # arr.my_each_with_index { |n, i| puts "this is my #{n} and this is my index #{i}" }
 
