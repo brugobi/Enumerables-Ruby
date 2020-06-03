@@ -59,13 +59,19 @@ module Enumerable
     counter
   end
 
-  def my_map
+  def my_map (a = nil)
     return to_enum unless block_given?
-
     map_array = []
-    my_each { |n| map_array << yield(n) }
+    my_each { |n| map_array << proc.call(n) }
     map_array
   end
+
+  # def my_map 
+  #   return to_enum unless block_given?
+  #   map_array = []
+  #   my_each { |n| map_array << yield (n) }
+  #   map_array
+  # end
 
   def my_inject(*args) # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
     args_size = args.length
@@ -84,27 +90,33 @@ module Enumerable
   end
 
   # rubocop:enable
+  
 end
 
-arr = [5, 6, 7, 8, 9, 10]
+arr = [1,1,1,2,2,2]
 
 # puts arr.my_map
 
-my_number = 1
+# my_number = 1
 
-puts arr.my_inject(:+)
-puts arr.my_inject { |sum, n| sum + n }
-puts arr.my_inject(1, :*)
-puts arr.my_inject(1) { |product, n| product * n }
+# puts arr.my_inject(:+)
+# puts arr.my_inject { |sum, n| sum + n }
+# puts arr.my_inject(1, :*)
+# puts arr.my_inject(1) { |product, n| product * n }
 
-longest = %w[cat sheep bear].inject do |memo, word|
-  memo.length > word.length ? memo : word
-end
+# longest = %w[cat sheep bear].inject do |memo, word|
+#   memo.length > word.length ? memo : word
+# end
 
-puts longest
+# puts longest
 
 # def multiply_els(arr)
 #   p arr.my_inject(1) { |r, i| r * i }
 # end
 
 # multiply_els(arr)
+
+my_proc = Proc.new { |number| number * 3 }
+
+puts arr.my_map(&my_proc)
+
