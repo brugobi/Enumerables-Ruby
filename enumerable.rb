@@ -71,24 +71,23 @@ module Enumerable
   end
 
   # rubocop:enable
+  
 end
-
-arr = [5, 6, 7, 8, 9, 10]
 
 # puts arr.my_map
 
-my_number = 1
+# my_number = 1
 
-puts arr.my_inject(:+)
-puts arr.my_inject { |sum, n| sum + n }
-puts arr.my_inject(1, :*)
-puts arr.my_inject(1) { |product, n| product * n }
+# puts arr.my_inject(:+)
+# puts arr.my_inject { |sum, n| sum + n }
+# puts arr.my_inject(1, :*)
+# puts arr.my_inject(1) { |product, n| product * n }
 
-longest = %w[cat sheep bear].inject do |memo, word|
-  memo.length > word.length ? memo : word
-end
+# longest = %w[cat sheep bear].inject do |memo, word|
+#   memo.length > word.length ? memo : word
+# end
 
-puts longest
+# puts longest
 
 # def multiply_els(arr)
 #   p arr.my_inject(1) { |r, i| r * i }
