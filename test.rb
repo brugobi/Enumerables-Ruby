@@ -1,7 +1,9 @@
-def multiply_els (arr)
-    arr.my_inject { |sum, n| sum * n }    
+load 'enumerable.rb'
+
+def multiply_els(arr)
+  arr.my_inject { |sum, n| sum * n }
 end
 
-arr = [2,4,5]
+arr = [2, 4, 5]
 
-puts multiply_els (arr)
+puts multiply_els(arr)
