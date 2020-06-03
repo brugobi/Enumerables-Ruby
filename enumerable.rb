@@ -53,12 +53,12 @@ module Enumerable
     counter
   end
 
-  def my_map(a = nil)
+  def my_map(a_proc = nil)
     return to_enum unless block_given?
 
     map_array = []
 
-    if a.nil?
+    if a_proc.nil?
       my_each { |n| map_array << yield(n) }
     else
       my_each { |n| map_array << proc.call(n) }
@@ -67,10 +67,12 @@ module Enumerable
     map_array
   end
 
-  def my_inject(*args) # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+  def my_inject(*args)
     args_size = args.length
     result = args[0].is_a?(Integer) ? args[0] : nil
-    my_symbol = args[0].is_a?(Symbol) ? args[0] : (args_size > 1 ? args[1] : nil)
+    my_symbol = args[0].is_a?(Symbol) ? args[0] : nil
+    my_symbol = args[1] if my_symbol.nil? and args_size > 1
 
     if !my_symbol.nil?
 
@@ -83,5 +85,5 @@ module Enumerable
     result
   end
 
-  # rubocop:enable
+  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 end
