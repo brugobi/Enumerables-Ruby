@@ -23,7 +23,7 @@ my_inject
 ## Getting Started
 
 To test the bubble sort functions, you need to have ruby installed on your machine.
-Clone the repo and then in your terminal execute **ruby tests.rb**
+Clone the repo add whatever tests you what to the test.rb file and then in your terminal execute **ruby test.rb**
 
 ## Authors
 
