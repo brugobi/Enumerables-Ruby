@@ -71,29 +71,16 @@ module Enumerable
   def my_inject(*args) # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
     args_size = args.length
     result = args[0].is_a?(Integer) ? args[0] : nil
+    my_symbol = args[0].is_a?(Symbol) ? args[0]: (args_size > 1 ? args[1] : nil)
 
-    if args_size.zero? # nor arguments so block was called, we use yield
+    if !my_symbol.nil?
 
+      my_each { |i| result = result ? result.send(my_symbol, i) : i }
+    else
       my_each { |i| result = result ? yield(result, i) : i }
+    
+    end 
 
-      return result
-    end
-
-    if args[0].is_a?(Symbol) # symbol only
-
-      my_each { |i| result = result ? result.send(args[0], i) : i }
-      return result
-    end
-
-    if args_size > 1 # it has both the initial and the Symbol
-
-      my_each { |i| result = result.send(args[1], i) }
-      return result
-    end
-
-    return unless args[0].is_a?(Integer)
-
-    my_each { |i| result = yield(result, i) }
     result
   end
 
