@@ -46,17 +46,77 @@ module Enumerable
     counter
   end
 
-  def my_map
+  # def my_map
+  #   return to_enum unless block_given?
+
+  #   map_array = []
+  #   my_each { |n| map_array << yield(n) }
+  #   map_array
+  # end
+
+  def my_map(my_proc = nil)
     return to_enum unless block_given?
 
     map_array = []
-    my_each { |n| map_array << yield(n) }
+
+    if my_proc.nil?
+      my_each { |n| map_array << my_proc.call(n) }
+    else
+      my_each { |n| map_array << yield(n) }
+    end
+
     map_array
   end
+
+  def my_inject(*args) # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+    args_size = args.length
+    result = args[0].is_a?(Integer) ? args[0] : nil
+
+    if args_size.zero? # nor arguments so block was called, we use yield
+
+      my_each { |i| result = result ? yield(result, i) : i }
+
+      return result
+    end
+
+    if args[0].is_a?(Symbol) # symbol only
+
+      my_each { |i| result = result ? result.send(args[0], i) : i }
+      return result
+    end
+
+    if args_size > 1 # it has both the initial and the Symbol
+
+      my_each { |i| result = result.send(args[1], i) }
+      return result
+    end
+
+    return unless args[0].is_a?(Integer)
+
+    my_each { |i| result = yield(result, i) }
+    result
+  end
+
+  # rubocop:enable
 end
 
-arr = [1, 1, 45, 23, 56]
+arr = [5, 6, 7, 8, 9, 10]
 
-# arr.my_each_with_index { |n, i| puts "this is my #{n} and this is my index #{i}" }
+# puts arr.my_map
 
-puts arr.my_map(&:even?)
+puts arr.my_inject(:+)
+puts arr.my_inject { |sum, n| sum + n }
+puts arr.my_inject(1, :*)
+puts arr.my_inject(1) { |product, n| product * n }
+
+longest = %w[cat sheep bear].inject do |memo, word|
+  memo.length > word.length ? memo : word
+end
+
+puts longest
+
+# def multiply_els(arr)
+#   p arr.my_inject(1) { |r, i| r * i }
+# end
+
+# multiply_els(arr)
