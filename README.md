@@ -14,7 +14,7 @@ my_any?
 my_none?
 my_count
 my_map
-my_inject
+my_inject.
 
 ## Built With
 
