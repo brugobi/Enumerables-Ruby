@@ -40,9 +40,22 @@ module Enumerable
     true
   end
 
-  def my_count
+  # def my_count
+  #   counter = 0
+  #   my_each { |i| counter += 1 if yield(i) }
+  #   counter
+  # end
+
+  def my_count(arg = nil)
     counter = 0
-    my_each { |i| counter += 1 if yield(i) }
+
+    if !arg.nil?
+      my_each { |i| counter += 1 if i == arg }
+    elsif block_given?
+      my_each { |i| counter += 1 if yield(i) }
+    else
+      counter
+    end
     counter
   end
 
