@@ -40,12 +40,6 @@ module Enumerable
     true
   end
 
-  # def my_count
-  #   counter = 0
-  #   my_each { |i| counter += 1 if yield(i) }
-  #   counter
-  # end
-
   def my_count(arg = nil)
     counter = 0
 
@@ -59,19 +53,19 @@ module Enumerable
     counter
   end
 
-  def my_map (a = nil)
+  def my_map(a = nil)
     return to_enum unless block_given?
+
     map_array = []
-    my_each { |n| map_array << proc.call(n) }
+
+    if a.nil?
+      my_each { |n| map_array << yield(n) }
+    else
+      my_each { |n| map_array << proc.call(n) }
+    end
+
     map_array
   end
-
-  # def my_map 
-  #   return to_enum unless block_given?
-  #   map_array = []
-  #   my_each { |n| map_array << yield (n) }
-  #   map_array
-  # end
 
   def my_inject(*args) # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
     args_size = args.length
@@ -90,10 +84,9 @@ module Enumerable
   end
 
   # rubocop:enable
-  
 end
 
-arr = [1,1,1,2,2,2]
+arr = [1, 1, 1, 2, 2, 2]
 
 # puts arr.my_map
 
@@ -116,7 +109,7 @@ arr = [1,1,1,2,2,2]
 
 # multiply_els(arr)
 
-my_proc = Proc.new { |number| number * 3 }
+my_proc = proc { |number| number * 3 }
 
 puts arr.my_map(&my_proc)
-
+# puts arr.my_map { |number| number * 3 }
