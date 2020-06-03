@@ -46,40 +46,26 @@ module Enumerable
     counter
   end
 
-  # def my_map
-  #   return to_enum unless block_given?
-
-  #   map_array = []
-  #   my_each { |n| map_array << yield(n) }
-  #   map_array
-  # end
-
-  def my_map(my_proc = nil)
+  def my_map
     return to_enum unless block_given?
 
     map_array = []
-
-    if my_proc.nil?
-      my_each { |n| map_array << my_proc.call(n) }
-    else
-      my_each { |n| map_array << yield(n) }
-    end
-
+    my_each { |n| map_array << yield(n) }
     map_array
   end
 
   def my_inject(*args) # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
     args_size = args.length
     result = args[0].is_a?(Integer) ? args[0] : nil
-    my_symbol = args[0].is_a?(Symbol) ? args[0]: (args_size > 1 ? args[1] : nil)
+    my_symbol = args[0].is_a?(Symbol) ? args[0] : (args_size > 1 ? args[1] : nil)
 
     if !my_symbol.nil?
 
       my_each { |i| result = result ? result.send(my_symbol, i) : i }
     else
       my_each { |i| result = result ? yield(result, i) : i }
-    
-    end 
+
+    end
 
     result
   end
@@ -90,6 +76,8 @@ end
 arr = [5, 6, 7, 8, 9, 10]
 
 # puts arr.my_map
+
+my_number = 1
 
 puts arr.my_inject(:+)
 puts arr.my_inject { |sum, n| sum + n }
