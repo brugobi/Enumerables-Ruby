@@ -3,6 +3,7 @@ module Enumerable
     return to_enum unless block_given?
 
     size.times { |n| yield (self[n]) }
+    self
   end
 
   def my_each_with_index
@@ -67,7 +68,6 @@ module Enumerable
     map_array
   end
 
-  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def my_inject(*args)
     args_size = args.length
     result = args[0].is_a?(Integer) ? args[0] : nil
@@ -85,5 +85,10 @@ module Enumerable
     result
   end
 
-  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+  # rubocop:enable
 end
+
+arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+arr_2 = arr.my_each { |i| i * 2 }
+print arr_2
