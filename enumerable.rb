@@ -50,7 +50,7 @@ module Enumerable
     elsif block_given?
       my_each { |i| counter += 1 if yield(i) }
     else
-      counter
+      counter = size
     end
     counter
   end
@@ -91,5 +91,5 @@ end
 
 arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
-arr_2 = arr.my_each { |i| i * 2 }
+arr_2 = arr.my_count
 print arr_2
