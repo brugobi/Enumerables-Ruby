@@ -76,7 +76,7 @@ module Enumerable
     elsif block_given?
       my_each { |i| counter += 1 if yield(i) }
     else
-      counter
+      counter = size
     end
     counter
   end
