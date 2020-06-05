@@ -2,14 +2,18 @@ module Enumerable
   def my_each
     return to_enum unless block_given?
 
-    size.times { |n| yield (self[n]) }
+    my_array = is_a?(Range) ? to_a : self
+
+    my_array.size.times { |n| yield (my_array[n]) }
     self
   end
 
   def my_each_with_index
     return to_enum unless block_given?
 
-    size.times { |n| yield self[n], n }
+    my_array = is_a?(Range) ? to_a : self
+
+    my_array.size.times { |n| yield my_array[n], n }
     self
   end
 
@@ -113,10 +117,8 @@ module Enumerable
     result
   end
 
-  # rubocop:enable
+  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 end
 
-arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-
-arr_2 = arr.my_count
-print arr_2
+arr = (1..5).my_each { |x| x - 1 }
+puts arr
