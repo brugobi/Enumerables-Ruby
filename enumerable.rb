@@ -1,12 +1,14 @@
 module Enumerable
   def my_each
     return to_enum unless block_given?
+
     size.times { |n| yield (self[n]) }
-    self 
+    self
   end
 
   def my_each_with_index
     return to_enum unless block_given?
+
     size.times { |n| yield self[n], n }
     self
   end
@@ -19,11 +21,21 @@ module Enumerable
     result_array
   end
 
-  def my_all
-    return true unless block_given?
+  def my_all(arg = nil)
+    result = true
 
-    my_each { |n| return false unless yield(n) }
-    true
+    my_each do |i|
+      result = if arg
+                 arg.is_a?(Class) ? i.is_a?(arg) : i.to_s.match?(arg.to_s)
+               elsif block_given?
+                 yield i
+               else
+                 i == false || i.nil? ? false : true
+              end
+      return false unless result
+    end
+
+    result
   end
 
   def my_any
@@ -87,3 +99,8 @@ module Enumerable
 
   # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 end
+
+arr = [1, 3, 4, 'dismas']
+puts arr.my_all
+puts arr.my_all('Integer')
+puts arr.my_all(String)
