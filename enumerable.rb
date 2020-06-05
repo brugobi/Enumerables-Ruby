@@ -21,6 +21,7 @@ module Enumerable
     result_array
   end
 
+  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def my_all(arg = nil)
     result = true
 
@@ -31,7 +32,7 @@ module Enumerable
                  yield i
                else
                  i == false || i.nil? ? false : true
-              end
+               end
       return false unless result
     end
 
@@ -95,7 +96,6 @@ module Enumerable
     map_array
   end
 
-  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def my_inject(*args)
     args_size = args.length
     result = args[0].is_a?(Integer) ? args[0] : nil
@@ -115,8 +115,3 @@ module Enumerable
 
   # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 end
-
-arr = [1, 3, 4, 'dismas']
-puts arr.my_all
-puts arr.my_all('Integer')
-puts arr.my_all(String)
