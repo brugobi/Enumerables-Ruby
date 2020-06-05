@@ -7,8 +7,8 @@ module Enumerable
 
   def my_each_with_index
     return to_enum unless block_given?
-
     size.times { |n| yield self[n], n }
+    self
   end
 
   def my_select
