@@ -21,25 +21,52 @@ module Enumerable
     result_array
   end
 
-  def my_all
-    return true unless block_given?
+  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+  def my_all(arg = nil)
+    result = true
 
-    my_each { |n| return false unless yield(n) }
-    true
+    my_each do |i|
+      result = if arg
+                 arg.is_a?(Class) ? i.is_a?(arg) : i.to_s.match?(arg.to_s)
+               elsif block_given?
+                 yield i
+               else
+                 i == false || i.nil? ? false : true
+               end
+      return false unless result
+    end
+
+    result
   end
 
-  def my_any
-    return true unless block_given?
-
-    my_each { |n| return true if yield(n) }
-    false
+  def my_any(arg = nil)
+    result = false
+    my_each do |i|
+      result = if arg
+                 arg.is_a?(Class) ? i.is_a?(arg) : i.to_s.match?(arg.to_s)
+               elsif block_given?
+                 yield i
+               else
+                 i == false || i.nil? ? false : true
+               end
+      return true if result
+    end
+    result
   end
 
-  def my_none
-    return true unless block_given?
-
-    my_each { |i| return false if yield(i) == true }
-    true
+  def my_none(arg = nil)
+    result = true
+    my_each do |i|
+      result = if arg
+                 arg.is_a?(Class) ? i.is_a?(arg) : i.to_s.match?(arg.to_s)
+               elsif block_given?
+                 !yield i
+               else
+                 !i == false || i.nil? ? false : true
+               end
+      return true if result
+    end
+    result
   end
 
   def my_count(arg = nil)
