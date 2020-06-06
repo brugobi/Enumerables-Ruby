@@ -26,7 +26,7 @@ module Enumerable
   end
 
   # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
-  def my_all(arg = nil)
+  def my_all?(arg = nil)
     result = true
 
     my_each do |i|
@@ -43,7 +43,7 @@ module Enumerable
     result
   end
 
-  def my_any(arg = nil)
+  def my_any?(arg = nil)
     result = false
     my_each do |i|
       result = if arg
@@ -58,7 +58,7 @@ module Enumerable
     result
   end
 
-  def my_none(arg = nil)
+  def my_none?(arg = nil)
     result = true
     my_each do |i|
       result = if arg
