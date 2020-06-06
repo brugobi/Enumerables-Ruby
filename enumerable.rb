@@ -1,10 +1,9 @@
 module Enumerable
   def my_each
-    return to_enum unless block_given?
-
-    my_array = is_a?(Range) ? to_a : self
-
-    my_array.size.times { |n| yield (my_array[n]) }
+    if block_given?
+      my_array = is_a?(Range) ? to_a : self
+      my_array.size.times { |n| yield (my_array[n]) }
+    end
     self
   end
 
@@ -120,5 +119,19 @@ module Enumerable
   # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 end
 
-arr = (1..5).my_each { |x| x - 1 }
-puts arr
+# arr = (1..5).my_each { |x| x - 1 }
+# puts arr
+
+# hash = {}
+# %w[cat dog wombat].my_each do |item, index|
+#   hash[item] = index
+# end
+
+# puts hash
+
+# hash_2 = {}
+# %w[cat dog wombat].my_each_with_index do |item, index|
+#   hash_2[item] = index
+# end
+
+# puts hash_2
