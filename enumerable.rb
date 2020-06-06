@@ -61,13 +61,13 @@ module Enumerable
     result = true
     my_each do |i|
       result = if arg
-                 arg.is_a?(Class) ? i.is_a?(arg) : i.to_s.match?(arg.to_s)
+                 arg.is_a?(Class) ? !i.is_a?(arg) : !i.to_s.match?(arg.to_s)
                elsif block_given?
                  !yield i
                else
-                 !i == false || i.nil? ? false : true
+                 i == false || i.nil? ? true : false
                end
-      return true if result
+      break unless result
     end
     result
   end
@@ -119,19 +119,12 @@ module Enumerable
   # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 end
 
-# arr = (1..5).my_each { |x| x - 1 }
-# puts arr
+puts %w[ant bear cat].my_none? { |word| word.length == 5 } #=> true
+puts %w[ant bear cat].my_none? { |word| word.length >= 4 } #=> false
 
-# hash = {}
-# %w[cat dog wombat].my_each do |item, index|
-#   hash[item] = index
-# end
-
-# puts hash
-
-# hash_2 = {}
-# %w[cat dog wombat].my_each_with_index do |item, index|
-#   hash_2[item] = index
-# end
-
-# puts hash_2
+puts %w[ant bear cat].my_none?(/d/) #=> true
+puts [1, 3.14, 42].my_none?(Float) #=> false
+puts [].my_none? #=> true
+puts [nil].my_none? #=> true
+puts [nil, false].my_none? #=> true
+puts [nil, false, true].my_none? #=> false

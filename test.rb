@@ -22,3 +22,18 @@ puts multiply_els(arr)
 #   memo.length > word.length ? memo : word
 # end
 # puts longest #=> "sheep"
+
+# arr = (1..5).my_each { |x| x - 1 }
+# puts arr
+
+# hash = {}
+# %w[cat dog wombat].my_each do |item, index|
+#   hash[item] = index
+# end
+
+# puts hash
+
+# hash_2 = {}
+# %w[cat dog wombat].my_each_with_index do |item, index|
+#   hash_2[item] = index
+# end
