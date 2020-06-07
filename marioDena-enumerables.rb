@@ -1,5 +1,3 @@
-# This is the original code from @MarioDena all work here belongs to him, blah blah blah
-# The purpose of this is to call his my_map with both a proc and block and see if ruby runs it
 # rubocop disable Metrics/MethodLength
 
 module Enumerable
@@ -167,16 +165,12 @@ module Enumerable
   end
 end
 
+# arr = [1, 2, 3, 4]
+
+# # puts multiply_els(arr)
+
+# my_proc = proc { |n| 2 * n }
+# puts arr.my_map(&my_proc) { |n| 3 * n }
+
 ################# Testing Suite ##################
 # rubocop enable Metrics/MethodLength
-# rubocop:enable Metrics/CyclomaticComplexity
-# rubocop:enable Metrics/PerceivedComplexity
-# rubocop:enable Metrics/ModuleLength
-# rubocop: enable Metrics/BlockNesting
-
-arr = [1, 2, 3, 4]
-
-# puts multiply_els(arr)
-
-my_proc = proc { |n| 2 * n }
-puts arr.my_map(&my_proc) { |n| 3 * n }
