@@ -1,5 +1,7 @@
 module Enumerable
   def my_each
+    return to_enum(:my_each) unless block_given?
+
     if block_given?
       my_array = is_a?(Range) ? to_a : self
       my_array.size.times { |n| yield (my_array[n]) }
