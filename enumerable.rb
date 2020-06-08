@@ -92,10 +92,10 @@ module Enumerable
 
     map_array = []
 
-    if a_proc.nil?
-      my_each { |n| map_array << yield(n) }
+    if (block_given? && !a_proc.nil?) || !a_proc.nil?
+      my_each { |n| map_array << a_proc.call(n) }
     else
-      my_each { |n| map_array << proc.call(n) }
+      my_each { |n| map_array << yield(n) }
     end
 
     map_array
@@ -125,6 +125,9 @@ def multiply_els(arr)
   arr.my_inject { |sum, n| sum * n }
 end
 
-arr = [1, 2, 3, 4]
+arr = [1, 2, 7, 4, 5]
 
-puts multiply_els(arr)
+# puts multiply_els(arr)
+
+my_proc = proc { |x| x * 2 }
+p arr.my_map(my_proc) { |x| x * 1 }
