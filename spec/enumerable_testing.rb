@@ -1,4 +1,0 @@
-require '../enumerable.rb'
-
-
-
