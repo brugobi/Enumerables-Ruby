@@ -114,6 +114,18 @@ describe Enumerable do
     it 'checking my_count with array numbers passing block' do
       expect(array.my_count(&:even?)).to eql(array.count(&:even?))
     end
+
+    it 'checking my_count with array of integers see if is a string' do
+      expect(words.my_count(String)).to eql(words.my_count(String))
+    end
+
+    it 'checking my_count with array of integers see if is a string' do
+      expect(array.my_count(Integer)).to eql(array.my_count(Integer))
+    end
+
+    it 'checking my_count with regexp array of words' do
+      expect(words.my_count(/a/)).to eql(words.my_count(/a/))
+    end
   end
 
   describe '#My_none?' do
