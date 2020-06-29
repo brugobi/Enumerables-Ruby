@@ -35,6 +35,22 @@ describe Enumerable do
       expect(array.my_all? { |n| n > 5 }).to eql(array.all? { |n| n > 5 })
     end
 
+    it 'checking my_all with one number' do
+      expect(array.my_all?(3)).to eql(array.all?(3))
+    end
+
+    it 'checking my_all with array of integers see if is a string' do
+      expect(words.my_all?(String)).to eql(words.all?(String))
+    end
+
+    it 'checking my_all with array of integers see if is a string' do
+      expect(array.my_all?(Integer)).to eql(array.all?(Integer))
+    end
+
+    it 'checking my_all with regexp array of words' do
+      expect(words.my_all?(/a/)).to eql(words.all?(/a/))
+    end
+
     it 'checking my_all with array words' do
       expect(words.my_all? { |n| n.length > 2 }).to eql(words.all? { |n| n.length > 2 })
     end
@@ -55,6 +71,18 @@ describe Enumerable do
   describe '#My_any' do
     it 'checking my_any with array numbers' do
       expect(array.my_any? { |n| n > 5 }).to eql(array.any? { |n| n > 5 })
+    end
+
+    it 'checking my_any with array of integers see if is a string' do
+      expect(words.my_any?(String)).to eql(words.any?(String))
+    end
+
+    it 'checking my_any with array of integers see if is a string' do
+      expect(array.my_any?(Integer)).to eql(array.any?(Integer))
+    end
+
+    it 'checking my_any with regexp array of words' do
+      expect(words.my_any?(/a/)).to eql(words.any?(/a/))
     end
 
     it 'checking my_any with array words' do
@@ -88,9 +116,25 @@ describe Enumerable do
     end
   end
 
-  describe '#My_count?' do
+  describe '#My_none?' do
     it 'checking my_none with array numbers' do
       expect(array.my_none? { |n| n > 5 }).to eql(array.none? { |n| n > 5 })
+    end
+
+    it 'checking my_none with array of integers see if is a string' do
+      expect(words.my_none?(String)).to eql(words.none?(String))
+    end
+
+    it 'checking my_none with array of integers see if is a string' do
+      expect(array.my_none?(Integer)).to eql(array.none?(Integer))
+    end
+
+    it 'checking my_none with regexp array of words' do
+      expect(words.my_none?(/a/)).to eql(words.none?(/a/))
+    end
+
+    it 'checking my_none with array of words' do
+      expect(words.my_none?(5)).to eql(words.none?(5))
     end
 
     it 'checking my_none with array words' do

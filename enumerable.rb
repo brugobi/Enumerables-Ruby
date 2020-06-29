@@ -27,21 +27,23 @@ module Enumerable
   end
 
   # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
-  def my_all?(arg = nil)
-    result = true
+  def my_all?(cond = nil)
+    if !block_given? && cond.nil?
+      my_each { |i| return false unless i }
 
-    my_each do |i|
-      result = if arg
-                 arg.is_a?(Class) ? i.is_a?(arg) : i.match?(arg)
-               elsif block_given?
-                 yield i
-               else
-                 i == false || i.nil? ? false : true
-               end
-      return false unless result
+    elsif block_given?
+      my_each { |i| return false unless yield(i) }
+
+    elsif cond.is_a? Class
+
+      my_each { |i| return false unless i.is_a? cond }
+    elsif cond.is_a? Regexp
+
+      my_each { |i| return false unless i.match cond }
+    else
+      my_each { |i| return false unless i == cond }
     end
-
-    result
+    true
   end
 
   def my_any?(arg = nil)
@@ -61,19 +63,23 @@ module Enumerable
     result
   end
 
-  def my_none?(arg = nil)
-    result = true
-    my_each do |i|
-      result = if arg
-                 arg.is_a?(Class) ? !i.is_a?(arg) : !i.match?(arg)
-               elsif block_given?
-                 !yield i
-               else
-                 i == false || i.nil? ? true : false
-               end
-      break unless result
+  def my_none?(cond = nil)
+    if !block_given? && cond.nil?
+      my_each { |i| return false if i }
+
+    elsif block_given?
+      my_each { |i| return false if yield(i) }
+
+    elsif cond.is_a? Class
+
+      my_each { |i| return false if i.is_a? cond }
+    elsif cond.is_a? Regexp
+
+      my_each { |i| return false if i.match cond }
+    else
+      my_each { |i| return false if i == cond }
     end
-    result
+    true
   end
 
   def my_count(arg = nil)
