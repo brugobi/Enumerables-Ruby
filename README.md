@@ -25,6 +25,24 @@ my_inject.
 To test the enumerable methods, you need to have ruby installed on your machine.
 Clone the repo add whatever tests you what to the test.rb file and then in your terminal execute **ruby test.rb**
 
+## Commands
+
+# rubocop
+​
+Note: You need to do `bundle install` before executing the commands above.
+
+# Unit test (Rspec)
+
+ ![screenshot](./screenshot/ss1.png)
+
+To run the unit testings you will need to install the gem rspect with the following command
+
+`gem install rspec`
+
+To see the test results run the following command
+
+`rspec --format documentation`
+
 ## Authors
 
 👤 **Asiimwe Dismas**
