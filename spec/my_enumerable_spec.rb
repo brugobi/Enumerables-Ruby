@@ -9,7 +9,7 @@ describe Enumerable do
     end
 
     it 'returns the origin array' do
-      expect(g_array.my_each { |x| x + 1 }).to eql(g_array)
+      expect(g_array.my_each { |x| x + 1 }).to eql([1, 2, 3, 4, 5])
     end
 
     it 'calls given block once for each element' do
@@ -25,7 +25,7 @@ describe Enumerable do
     end
 
     it 'returns the origin array' do
-      expect(g_array.my_each { |x| x + 1 }).to eql(g_array)
+      expect(g_array.my_each_with_index { |x| x + 1 }).to eql([1, 2, 3, 4, 5])
     end
 
     it 'calls given block once for each element' do
