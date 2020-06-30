@@ -44,9 +44,16 @@ describe Enumerable do
   end
 
   describe '#my_count' do
-    it 'Returns the number of items in enum through enumeration'
-    it 'counts the number of elements yielding a true value If a block is given'
-    it 'counts the number of items in enum that are equal to item, if argument is given'
+    let(:ary) { [1, 2, 4, 2] }
+    it 'Returns the number of items in enum through enumeration' do
+      expect(ary.my_count).to eql(4)
+    end
+    it 'counts the number of elements yielding a true value If a block is given' do
+      expect(ary.my_count(&:even?)).to eql(3)
+    end
+    it 'counts the number of items in enum that are equal to item, if argument is given' do
+      expect(ary.my_count(2)).to eql(2)
+    end
   end
 
   describe '#my_map' do
