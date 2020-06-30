@@ -1,11 +1,11 @@
-require './lib/enumerable.rb'
+require './enumerable.rb'
 
 describe Enumerable do
   let(:g_array) { [1, 2, 3, 4, 5] }
 
   describe '#my_each' do
     it 'If no block is given, an Enumerator is returned instead' do
-      expect(g_array.my_each.instance_of?(Enumerable)).to eql(g_array.each.instance_of?(Enumerable))
+      expect(g_array.my_each.class).to eql(g_array.each.class)
     end
 
     it 'returns the origin array' do
@@ -49,7 +49,7 @@ describe Enumerable do
     end
 
     it 'If no block is given, an Enumerator is returned instead' do
-      expect((1..4).my_select.instance_of?(Enumerable)).to eql((1..4).select.instance_of?(Enumerable))
+      expect((1..4).my_select.class).to eql((1..4).select.class)
     end
   end
 
@@ -143,7 +143,7 @@ describe Enumerable do
     end
 
     it 'Returns an enumerator instead If no block is given' do
-      expect((1..4).my_map.instance_of?(Enumerable)).to eql((1..4).map.instance_of?(Enumerable))
+      expect((1..4).my_map.class).to eql((1..4).map.class)
     end
   end
 
