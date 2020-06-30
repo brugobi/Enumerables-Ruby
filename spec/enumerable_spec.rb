@@ -1,31 +1,31 @@
 require './lib/enumerable.rb'
 
 describe Enumerable do
-  let(:original_array) { [1, 2, 3, 4, 5] }
+  let(:g_array) { [1, 2, 3, 4, 5] }
 
   describe '#my_each' do
     it 'If no block is given, an Enumerator is returned instead' do
-      expect(original_array.my_each.instance_of?(Enumerable)).to eql(original_array.each.instance_of?(Enumerable))
+      expect(g_array.my_each.instance_of?(Enumerable)).to eql(g_array.each.instance_of?(Enumerable))
     end
 
     it 'returns the origin array' do
-      expect(original_array.my_each { |x| x + 1 }).to eql(original_array)
+      expect(g_array.my_each { |x| x + 1 }).to eql(g_array)
     end
 
     it 'calls given block once for each element' do
       call_count = 0
-      original_array.my_each { |_x| call_count += 1 }
-      raise unless call_count == original_array.size
+      g_array.my_each { |_x| call_count += 1 }
+      raise unless call_count == g_array.size
     end
   end
 
   describe '#my_each_with_index' do
     it 'If no block is given, an Enumerator is returned instead' do
-      expect(original_array.my_each_with_index.class).to eql(original_array.each_with_index.class)
+      expect(g_array.my_each_with_index.class).to eql(g_array.each_with_index.class)
     end
 
     it 'returns the origin array' do
-      expect(original_array.my_each { |x| x + 1 }).to eql(original_array)
+      expect(g_array.my_each { |x| x + 1 }).to eql(g_array)
     end
 
     it 'calls given block once for each element' do
@@ -59,8 +59,8 @@ describe Enumerable do
     end
 
     it 'should not mutate the original array' do
-      original_array.my_all?
-      expect(original_array).to eql([1, 2, 3, 4, 5])
+      g_array.my_all?
+      expect(g_array).to eql([1, 2, 3, 4, 5])
     end
 
     it 'should return true when none of the collection members are false or nil When no block or argument is given ' do
@@ -82,8 +82,8 @@ describe Enumerable do
     end
 
     it 'should not mutate the original array' do
-      original_array.my_any?
-      expect(original_array).to eql([1, 2, 3, 4, 5])
+      g_array.my_any?
+      expect(g_array).to eql([1, 2, 3, 4, 5])
     end
 
     it 'should return true if at least one of the collection is not false or nil When no block or argument is given ' do
@@ -105,8 +105,8 @@ describe Enumerable do
     end
 
     it 'should not mutate the original array' do
-      original_array.my_none?
-      expect(original_array).to eql([1, 2, 3, 4, 5])
+      g_array.my_none?
+      expect(g_array).to eql([1, 2, 3, 4, 5])
     end
 
     it 'should return true only if none of the collection members is true when no block or argument is given ' do
