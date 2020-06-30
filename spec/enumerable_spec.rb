@@ -4,9 +4,15 @@ describe Enumerable do
   let(:original_array) { [1, 2, 3, 4, 5] }
 
   describe '#my_each' do
-    it 'returns the origin array'
+    it 'returns the origin array' do
+      expect(original_array.my_each { |x| x + 1 }).to eql(original_array)
+    end
 
-    it 'calls given block once for each element'
+    it 'calls given block once for each element' do
+      call_count = 0
+      original_array.my_each { |_x| call_count += 1 }
+      raise unless call_count == original_array.size
+    end
   end
 
   describe '#my_each_with_index' do
