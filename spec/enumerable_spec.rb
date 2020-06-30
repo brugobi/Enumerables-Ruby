@@ -36,9 +36,13 @@ describe Enumerable do
   end
 
   describe '#my_select' do
-    it 'Returns an array containing all elements of enum for which the given block returns a true value'
+    it 'Returns an array containing all elements of enum for which the given block returns a true value' do
+      expect((1..10).my_select { |i| i % 3 == 0 }).to eql([3, 6, 9])
+    end
 
-    it 'If no block is given, an Enumerator is returned instead'
+    it 'If no block is given, an Enumerator is returned instead' do
+      expect((1..4).my_select.instance_of?(Enumerable)).to eql((1..4).select.instance_of?(Enumerable))
+    end
   end
 
   describe '#my_all?' do
@@ -130,9 +134,9 @@ describe Enumerable do
       raise unless (1..4).my_map { |i| i * i } == [1, 4, 9, 16]
     end
 
-    # it 'Returns an enumerator instead If no block is given' do
-    #   expect((1..4).my_map).to eql((1..4).map)
-    # end
+    it 'Returns an enumerator instead If no block is given' do
+      expect((1..4).my_map.instance_of?(Enumerable)).to eql((1..4).map.instance_of?(Enumerable))
+    end
   end
 
   describe '#my_inject' do
