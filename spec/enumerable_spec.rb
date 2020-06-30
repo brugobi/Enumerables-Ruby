@@ -21,7 +21,7 @@ describe Enumerable do
 
   describe '#my_each_with_index' do
     it 'If no block is given, an Enumerator is returned instead' do
-      expect(original_array.my_each_with_index.instance_of?(Enumerable)).to eql(original_array.each_with_index.instance_of?(Enumerable))
+      expect(original_array.my_each_with_index.class).to eql(original_array.each_with_index.class)
     end
 
     it 'returns the origin array' do
@@ -77,16 +77,16 @@ describe Enumerable do
   end
 
   describe '#my_any?' do
-    it 'It should return true if the block ever returns a value other than false or nil' do
+    it 'should return true if the block ever returns a value other than false or nil' do
       expect(%w[ant bear cat].my_any? { |word| word.length >= 3 }).to eql(true)
     end
 
-    it 'It should not mutate the original array' do
+    it 'should not mutate the original array' do
       original_array.my_any?
       expect(original_array).to eql([1, 2, 3, 4, 5])
     end
 
-    it 'it should return true if at least one of the collection is not false or nil When no block or argument is given ' do
+    it 'should return true if at least one of the collection is not false or nil When no block or argument is given ' do
       expect([nil, true, 99].my_any?).to eql(true)
     end
 
@@ -100,25 +100,25 @@ describe Enumerable do
   end
 
   describe '#my_none?' do
-    it 'It should return true if the block never returns true for all elements.' do
+    it 'should return true if the block never returns true for all elements.' do
       expect(%w[ant bear cat].my_none? { |word| word.length >= 4 }).to eql(false)
     end
 
-    it 'It should not mutate the original array' do
+    it 'should not mutate the original array' do
       original_array.my_none?
       expect(original_array).to eql([1, 2, 3, 4, 5])
     end
 
-    it 'it should return true only if none of the collection members is true when no block or argument is given ' do
+    it 'should return true only if none of the collection members is true when no block or argument is given ' do
       expect([nil, false].my_none?).to eql(true)
     end
 
-    it 'when a class is passed as an argument it should return true if none of the collection is a member of such class' do
+    it 'should return true if none of the collection is a member of such class when argument is a class' do
       expect([1, 3.14, 42].my_none?(Float)).to eql(false)
     end
 
-    it 'when a Regex is passed as an argument it should return true only if none of the collection matches the Regex' do
-      expect(%w[ant bear cat].my_none?(/d/)).to eql(%w[ant bear cat].none?(/1/))
+    it 'should return true only if none of the collection matches the Regex when argument is Regex' do
+      expect(%w[ant bear cat].my_none?(/d/)).to eql(true)
     end
   end
 
