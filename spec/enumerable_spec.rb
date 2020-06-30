@@ -65,20 +65,26 @@ describe Enumerable do
   end
 
   describe '#my_any?' do
-    it 'It should return true if the block ever returns a value other than false or nil'
+    it 'It should return true if the block ever returns a value other than false or nil' do
+      expect(%w[ant bear cat].my_any? { |word| word.length >= 3 }).to eql(true)
+    end
 
     it 'It should not mutate the original array' do
       original_array.my_any?
       expect(original_array).to eql([1, 2, 3, 4, 5])
     end
 
-    it 'it should return true if at least one of the collection is not false or nil When no block or argument is given '
+    it 'it should return true if at least one of the collection is not false or nil When no block or argument is given ' do
+      expect([nil, true, 99].my_any?).to eql(true)
+    end
 
-    it 'return true if at least one of the collection is a member of such class'
+    it 'return true if at least one of the collection is a member of such class' do
+      expect([nil, true, 99].my_any?(Integer)).to eql(true)
+    end
 
-    it 'return false if none of the collection matches the Regex'
-
-    it 'return false if none of the collection matches the pattern'
+    it 'return false if none of the collection matches the Regex' do
+      expect(%w[ant bear cat].my_any?(/d/)).to eql(false)
+    end
   end
 
   describe '#my_none?' do
