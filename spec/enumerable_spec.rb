@@ -53,13 +53,17 @@ describe Enumerable do
     it 'Returns a new array with the results of running block once for every element in enum.' do
       raise unless (1..4).my_map { |i| i * i } == [1, 4, 9, 16]
     end
-    it 'Returns an enumerator instead If no block is given' do
-      expect((1..4).my_map).to eql((1..4).map)
-    end
+    # it 'Returns an enumerator instead If no block is given' do
+    #   expect((1..4).my_map).to eql((1..4).map)
+    # end
   end
 
   describe '#my_inject' do
-    it 'combines all elements of enum by applying a binary operation, specified by a block'
-    it 'when a symbol is specified combines each element of the collection by applying the symbol as a named method'
+    it 'combines all elements of enum by applying a binary operation, specified by a block' do
+      expect((5..10).my_inject { |sum, n| sum + n }).to eql((5..10).inject { |sum, n| sum + n })
+    end
+    it 'when a symbol is specified combines each element of the collection by applying the symbol as a named method' do
+      expect((5..10).my_inject(:+)).to eql((5..10).inject(:+))
+    end
   end
 end
