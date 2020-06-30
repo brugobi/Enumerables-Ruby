@@ -4,6 +4,10 @@ describe Enumerable do
   let(:original_array) { [1, 2, 3, 4, 5] }
 
   describe '#my_each' do
+    it 'If no block is given, an Enumerator is returned instead' do
+      expect(original_array.my_each.instance_of?(Enumerable)).to eql(original_array.each.instance_of?(Enumerable))
+    end
+
     it 'returns the origin array' do
       expect(original_array.my_each { |x| x + 1 }).to eql(original_array)
     end
@@ -16,6 +20,10 @@ describe Enumerable do
   end
 
   describe '#my_each_with_index' do
+    it 'If no block is given, an Enumerator is returned instead' do
+      expect(original_array.my_each_with_index.instance_of?(Enumerable)).to eql(original_array.each_with_index.instance_of?(Enumerable))
+    end
+
     it 'returns the origin array' do
       expect(original_array.my_each { |x| x + 1 }).to eql(original_array)
     end
