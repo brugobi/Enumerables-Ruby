@@ -33,7 +33,7 @@ Note: You need to do `bundle install` before executing the commands above.
 
 # Unit test (Rspec)
 
- ![screenshot](../screenshot/ss1.png)
+ ![screenshot](./screenshot/ss1.png)
 
 To run the unit testings you will need to install the gem rspect with the following command
 
