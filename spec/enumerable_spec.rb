@@ -50,8 +50,12 @@ describe Enumerable do
   end
 
   describe '#my_map' do
-    it 'Returns a new array with the results of running block once for every element in enum.'
-    it 'Returns an enumerator instead If no block is given'
+    it 'Returns a new array with the results of running block once for every element in enum.' do
+      raise unless (1..4).my_map { |i| i * i } == [1, 4, 9, 16]
+    end
+    it 'Returns an enumerator instead If no block is given' do
+      expect((1..4).my_map).to eql((1..4).map)
+    end
   end
 
   describe '#my_inject' do
