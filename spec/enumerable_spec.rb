@@ -16,11 +16,23 @@ describe Enumerable do
   end
 
   describe '#my_each_with_index' do
-    it 'returns the origin array'
+    it 'returns the origin array' do
+      expect(original_array.my_each { |x| x + 1 }).to eql(original_array)
+    end
 
-    it 'calls given block once for each element'
+    it 'calls given block once for each element' do
+      my_hash = {}
+      %w[cat dog wombat].my_each_with_index do |item, index|
+        my_hash[item] = index
+      end
 
-    it 'gives the index of current element'
+      ruby_docs_hash = {}
+      %w[cat dog wombat].each_with_index do |item, index|
+        ruby_docs_hash[item] = index
+      end
+
+      expect(my_hash).to eql(ruby_docs_hash)
+    end
   end
 
   describe '#my_select' do
